@@ -6,9 +6,14 @@
 </head>
 <body>
 <div>
-    <form>
+    <form action="/todos/new" method="post">
+        <label for="category">카테고리</label>
+        <select name="category" id="category">
+            <option value="STUDY">스터디</option>
+            <option value="HOUSEWORK">집안일</option>
+        </select>
         <label for="content">할일 입력</label>
-        <input type="text" id="content">
+        <input type="text" id="content" name="content">
         <button>추가</button>
     </form>
 </div>

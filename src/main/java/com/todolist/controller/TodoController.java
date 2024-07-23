@@ -6,6 +6,7 @@ import com.todolist.service.TodoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class TodoController {
@@ -13,12 +14,15 @@ public class TodoController {
 
     @GetMapping("/")
     public String list(Model model) {
-        // 등록 기능 구현 후 제거 예정
-        service.createTodo(new Todo("todo1", Category.STUDY));
-        service.createTodo(new Todo("todo2", Category.HOUSEWORK));
-
         model.addAttribute("todos", service.findTodos());
 
         return "todo/list";
+    }
+
+    @PostMapping("/todos/new")
+    public String createTodo(TodoCreateForm form) {
+        Todo todo = new Todo(form.getContent(), Category.valueOf(form.getCategory()));
+        service.createTodo(todo);
+        return "redirect:/";
     }
 }
