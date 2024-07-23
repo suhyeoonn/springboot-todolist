@@ -13,17 +13,11 @@
     </form>
 </div>
 <ul>
-    <li>
+    <li th:each="todo : ${todos}">
         <div>
-            <label><input type="checkbox">자바 강의 보기</label><button>x</button>
+            <label><input type="checkbox" th:text="${todo.content}"></label><button>x</button>
         </div>
-        <div>카테고리: 공부</div>
-    </li>
-    <li>
-        <div>
-            <label><input type="checkbox">빨래 하기</label><button>x</button>
-        </div>
-        <div>카테고리: 집안일</div>
+        <div th:text="${'카테고리: '+todo.category}">카테고리: 공부</div>
     </li>
 </ul>
 </body>

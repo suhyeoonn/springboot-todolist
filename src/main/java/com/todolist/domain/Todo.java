@@ -17,4 +17,12 @@ public class Todo {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
 }
