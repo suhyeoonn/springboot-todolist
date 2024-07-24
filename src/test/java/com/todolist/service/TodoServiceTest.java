@@ -3,6 +3,7 @@ package com.todolist.service;
 import com.todolist.domain.Category;
 import com.todolist.domain.Todo;
 import com.todolist.repository.TodoRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -13,6 +14,11 @@ class TodoServiceTest {
 
     private final TodoService service = new TodoService();
     private final TodoRepository repository = new TodoRepository();
+
+    @AfterEach
+    public void afterEach() {
+        repository.clearStore();
+    }
 
     @Test
     void createTodo() {
@@ -32,5 +38,16 @@ class TodoServiceTest {
 
         List<Todo> result = service.findTodos();
         assertThat(result.size()).isEqualTo(2);
+    }
+
+    @Test
+    void deleteTodo() {
+        Todo todo1 = new Todo("todo1", Category.STUDY);
+        service.createTodo(todo1);
+
+        service.deleteTodo(todo1.getId());
+
+        List<Todo> result = service.findTodos();
+        assertThat(result.size()).isEqualTo(0);
     }
 }

@@ -3,9 +3,12 @@ package com.todolist.controller;
 import com.todolist.domain.Category;
 import com.todolist.domain.Todo;
 import com.todolist.service.TodoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -25,4 +28,11 @@ public class TodoController {
         service.createTodo(todo);
         return "redirect:/";
     }
+
+    @DeleteMapping("/todos/{id}")
+    public ResponseEntity<Void> deleteTodo(@PathVariable("id") Long id) {
+        service.deleteTodo(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

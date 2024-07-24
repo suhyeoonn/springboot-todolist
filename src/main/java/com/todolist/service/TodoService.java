@@ -18,4 +18,8 @@ public class TodoService {
     public List<Todo> findTodos() {
         return repository.findAll();
     }
+
+    public void deleteTodo(Long id) {
+        repository.deleteById(id);
+    }
 }

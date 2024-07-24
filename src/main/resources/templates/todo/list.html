@@ -20,7 +20,7 @@
 <ul>
     <li th:each="todo : ${todos}">
         <div>
-            <label><input type="checkbox" th:text="${todo.content}"></label><button>x</button>
+            <label><input type="checkbox" th:text="${todo.content}"></label><button class="delete-btn" th:attr="data-id=${todo.id}">x</button>
         </div>
         <div th:text="${'카테고리: '+todo.category}">카테고리: 공부</div>
     </li>
@@ -34,6 +34,25 @@
             e.preventDefault();
         }
     })
+
+    const $deleteButtons = document.querySelectorAll('.delete-btn')
+    $deleteButtons.forEach(btn => {
+        btn.addEventListener('click', async ({target}) => {
+            await deleteTodo(target.dataset.id)
+        })
+    })
+
+    async function deleteTodo(id) {
+        try {
+            await fetch(`/todos/${id}`, {
+                method: 'DELETE',
+            })
+
+            location.href = '/'
+        } catch(e) {
+            console.error(e)
+        }
+    }
 </script>
 </body>
 </html>

@@ -26,4 +26,12 @@ public class TodoRepository {
     public List<Todo> findAll() {
         return new ArrayList<>(store.values());
     }
+
+    public void deleteById(Long id) {
+        store.remove(id);
+    }
+
+    public void clearStore() {
+        store.clear();
+    }
 }

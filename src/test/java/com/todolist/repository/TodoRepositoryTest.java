@@ -2,6 +2,7 @@ package com.todolist.repository;
 
 import com.todolist.domain.Category;
 import com.todolist.domain.Todo;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,6 +11,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 class TodoRepositoryTest {
     private final TodoRepository repository = new TodoRepository();
+
+    @AfterEach
+    public void afterEach() {
+        repository.clearStore();
+    }
 
     @Test
     void save() {
@@ -33,5 +39,16 @@ class TodoRepositoryTest {
         assertThat(result.size()).isEqualTo(2);
 
 
+    }
+
+    @Test
+    void deleteById() {
+        Todo todo1 = new Todo("todo1", Category.STUDY);
+        repository.save(todo1);
+
+        repository.deleteById(todo1.getId());
+
+        List<Todo> result = repository.findAll();
+        assertThat(result.size()).isEqualTo(0);
     }
 }
