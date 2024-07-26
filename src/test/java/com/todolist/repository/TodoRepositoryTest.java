@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 class TodoRepositoryTest {
     private final TodoRepository repository = new TodoRepository();
 
@@ -50,5 +50,17 @@ class TodoRepositoryTest {
 
         List<Todo> result = repository.findAll();
         assertThat(result.size()).isEqualTo(0);
+    }
+
+    @Test
+    void updateStatus() {
+        Todo todo = new Todo("todo1", Category.STUDY);
+        repository.save(todo);
+
+        repository.updateStatus(todo.getId(), true);
+        assertThat(todo.getIsDone()).isEqualTo(true);
+
+        repository.updateStatus(todo.getId(), false);
+        assertThat(todo.getIsDone()).isEqualTo(false);
     }
 }

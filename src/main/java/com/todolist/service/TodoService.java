@@ -22,4 +22,8 @@ public class TodoService {
     public void deleteTodo(Long id) {
         repository.deleteById(id);
     }
+
+    public void updateStatus(Long id, boolean status) {
+        repository.updateStatus(id, status);
+    }
 }

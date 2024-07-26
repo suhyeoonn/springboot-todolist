@@ -50,4 +50,18 @@ class TodoServiceTest {
         List<Todo> result = service.findTodos();
         assertThat(result.size()).isEqualTo(0);
     }
+
+    @Test
+    void updateStatus() {
+        Todo todo = new Todo("todo", Category.STUDY);
+        service.createTodo(todo);
+
+        service.updateStatus(todo.getId(), true);
+
+        Todo result = repository.findById(todo.getId());
+        assertThat(result.getIsDone()).isEqualTo(true);
+
+        service.updateStatus(todo.getId(), false);
+        assertThat(result.getIsDone()).isEqualTo(false);
+    }
 }

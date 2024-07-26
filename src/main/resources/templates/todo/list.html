@@ -20,7 +20,8 @@
 <ul>
     <li th:each="todo : ${todos}">
         <div>
-            <label><input type="checkbox" th:text="${todo.content}"></label><button class="delete-btn" th:attr="data-id=${todo.id}">x</button>
+            <label><input type="checkbox" th:text="${todo.content}" th:attr="value=${todo.id}"></label>
+            <button class="delete-btn" th:attr="data-id=${todo.id}">x</button>
         </div>
         <div th:text="${'카테고리: '+todo.category}">카테고리: 공부</div>
     </li>
@@ -48,6 +49,27 @@
                 method: 'DELETE',
             })
 
+            location.href = '/'
+        } catch(e) {
+            console.error(e)
+        }
+    }
+
+
+    // 체크박스 클릭 이벤트
+    document.querySelectorAll('input[type=checkbox]').forEach(c => {
+        c.addEventListener('click', ({target}) => {
+            updateTodo(target.value, target.checked)
+        })
+    });
+
+    async function updateTodo(id, isDone) {
+        try {
+            await fetch(`/todos/${id}`, {
+                method:'PATCH',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ isDone })
+            })
             location.href = '/'
         } catch(e) {
             console.error(e)

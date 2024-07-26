@@ -34,4 +34,9 @@ public class TodoRepository {
     public void clearStore() {
         store.clear();
     }
+
+    public void updateStatus(Long id, Boolean status) {
+        Todo todo = store.get(id);
+        todo.setDone(status);
+    }
 }
